@@ -45,6 +45,9 @@ get_header(); ?>
     /*height:510px;*/
     box-shadow: 1px 1px 14px 4px #586298;
     }
+    #zhib-cal p,#zhib-cal span,#zhib-cal td,#zhib-cal a {
+        font-size: 12px !important;
+    }
 
     #calSum,#calAmount,#calYear,#calPrecent{
         height: 32px;
@@ -136,6 +139,10 @@ get_header(); ?>
 
 </style>
 
+<style type="text/css" media=print> 
+.noprint{display:none} 
+</style>
+
 <script type="text/javascript" charset="utf-8">
     function showLightBox(divId) {
         $("#calculator").lightbox_me({
@@ -221,6 +228,29 @@ get_header(); ?>
     }
     // 清空表单内容 结束
 </script>
+
+
+<script> 
+    function preview(oper) { 
+        if (oper < 10) 
+        { 
+        bdhtml=window.document.body.innerHTML;//获取当前页的html代码 
+        sprnstr="<!--startprint"+oper+"-->";//设置打印开始区域 
+        eprnstr="<!--endprint"+oper+"-->";//设置打印结束区域 
+        prnhtml=bdhtml.substring(bdhtml.indexOf(sprnstr)+18); //从开始代码向后取html 
+
+        prnhtml=prnhtml.substring(0,prnhtml.indexOf(eprnstr));//从结束代码向前取html 
+        window.document.body.innerHTML=prnhtml; 
+        window.print(); 
+        window.document.body.innerHTML=bdhtml; 
+        } else { 
+        window.print(); 
+        } 
+    } 
+</script>
+
+
+
 	<div id="jisuanji-anj">
         <a class="buttons" href="javascript:;" onclick="showLightBox(&#39;calculator&#39;);">
             <div style="padding:15px 0;">PCB在线计价</div>
@@ -232,7 +262,9 @@ get_header(); ?>
             <div id="zhib-daikjisuan">
 
                 <div id="zhib-daikjisuan-title">
-                    <p>PCB在线计价</p>
+                    <p class="noprint">PCB在线计价</p>
+                    <input id="btnPrint" type="button" value="打印" onclick="javascript:window.print();" /> 
+                    <input id="btnPrint" type="button" value="打印预览" onclick=preview(1) /> 
                 </div>
                 <div id="zhib-zhognjain">
                     <table>
